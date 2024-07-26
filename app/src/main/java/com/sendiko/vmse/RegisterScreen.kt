@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sendiko.content_box_with_notification.ContentBoxWithNotification
 import com.sendiko.vmse.ui.theme.ViewModelEventAndStateTheme
+import kotlinx.coroutines.delay
 
 /**
  *
@@ -59,6 +60,7 @@ fun RegisterScreen(
 ) {
     LaunchedEffect(key1 = state.notificationMessage, key2 = state.isError) {
         if (state.notificationMessage.isNotBlank() || state.isError) {
+            delay(2000)
             onEvent(RegisterScreenEvent.OnClearNotification)
         }
     }

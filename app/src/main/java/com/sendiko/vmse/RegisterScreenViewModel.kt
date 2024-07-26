@@ -1,5 +1,6 @@
 package com.sendiko.vmse
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -53,11 +54,12 @@ class RegisterScreenViewModel : ViewModel() {
             delay(2000)
             when {
                 state.value.username.isBlank() -> {
+                    Log.i("FIELD_LOG", "onRegister: true")
                     _state.update {
                         it.copy(
                             isLoading = false,
                             isError = true,
-                            errorMessage = "Username can't be empty"
+                            notificationMessage = "Username can't be empty"
                         )
                     }
                 }
@@ -67,7 +69,7 @@ class RegisterScreenViewModel : ViewModel() {
                         it.copy(
                             isLoading = false,
                             isError = true,
-                            errorMessage = "Phone number can't be empty"
+                            notificationMessage = "Phone number can't be empty"
                         )
                     }
                 }
@@ -77,7 +79,17 @@ class RegisterScreenViewModel : ViewModel() {
                         it.copy(
                             isLoading = false,
                             isError = true,
-                            errorMessage = "Password can't be empty"
+                            notificationMessage = "Password can't be empty"
+                        )
+                    }
+                }
+
+                !state.value.agreeToTermsAndServices -> {
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = true,
+                            notificationMessage = "You need to agree with our Terms and Services."
                         )
                     }
                 }
